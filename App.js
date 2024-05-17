@@ -1,32 +1,61 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/*define style by inline */}
-      <Text>this is first my app .</Text>
-      
-      {/*
-        define style by inline 
-        defining style is similar to CSS language. but not all same.
-      */} 
-      <Text style={{margin : 16, padding : 16, borderColor: "red", borderWidth : 1}}> another text.</Text>
-      <Button title="tap me!"></Button>
+    <View style={styles.appContainer}>
+      <View style={styles.inputContainer}>
+        <TextInput style={styles.textInput} placeholder='your course goals'></TextInput>
+        <Button title='Add Goal'></Button>
+      </View>
+      <View>
+        <Text>List of Goals</Text>
+      </View>
+      {/* 
+        View is applied flex box css basically
+        flex box has a main asix
+        and the main asix is defined by box's flex direction (css attribute)
+
+        justify -> main asix
+        align -> cross asix
+      */}
+      <View style={styles.flexBoxArea}>
+        <View style={{backgroundColor:'red'}}>
+          <Text>1</Text>
+        </View>
+        <View style={{backgroundColor:'blue'}}>
+          <Text>2</Text>
+        </View>
+        <View style={{backgroundColor:'green'}}>
+          <Text>3</Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  appContainer : {
+    padding : 50,
   },
-  dummyText : {
-    margin : 16, 
-    padding : 16, 
-    borderColor: "red", 
-    borderWidth : 1
+  inputContainer :{
+    display : 'flex',
+    flexDirection : 'row',
+    justifyContent : 'space-between'
+  },
+  textInput : {
+    padding : 8,
+    marginRight : 8,
+    borderWidth : 1,
+    borderColor : '#cccccc',
+    width: '80%'
+  },
+  flexBoxArea : {
+    display : 'flex',
+    justifyContent : 'space-around',
+    alignItems : 'center',
+    flexDirection : 'row',
+    height : 300,
   }
+
+
 });

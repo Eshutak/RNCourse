@@ -7,7 +7,7 @@ export default function App() {
         <TextInput style={styles.textInput} placeholder='your course goals'></TextInput>
         <Button title='Add Goal'></Button>
       </View>
-      <View>
+      <View style={styles.goalsContainer}>
         <Text>List of Goals</Text>
       </View>
       {/* 
@@ -17,7 +17,7 @@ export default function App() {
 
         justify -> main asix
         align -> cross asix
-      */}
+      
       <View style={styles.flexBoxArea}>
         <View style={{backgroundColor:'red'}}>
           <Text>1</Text>
@@ -29,25 +29,36 @@ export default function App() {
           <Text>3</Text>
         </View>
       </View>
+    */}
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   appContainer : {
     padding : 50,
+    flex : 1,
   },
   inputContainer :{
+    flex : 1,
     display : 'flex',
     flexDirection : 'row',
-    justifyContent : 'space-between'
+    justifyContent : 'space-between',
+    marginBottom : 25,
+    borderBottomWidth : 1, 
+    borderBottomColor : '#cccccc',
+    alignItems : 'center',
   },
   textInput : {
     padding : 8,
     marginRight : 8,
     borderWidth : 1,
     borderColor : '#cccccc',
-    width: '80%'
+    width: '70%'
+  }, 
+  goalsContainer : {
+    flex: 5,
   },
   flexBoxArea : {
     display : 'flex',

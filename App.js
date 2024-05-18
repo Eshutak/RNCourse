@@ -3,13 +3,14 @@ import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
+  const [enteredGoalTextList, setEnteredGoalTextList] = useState([]);
 
   function goalInputHandler(enteredText){
     setEnteredGoalText(enteredText);
   }
 
   function addGoalHandler(){
-    console.log(enteredGoalText);
+    setEnteredGoalTextList((currentCourseGoals)=>[... enteredGoalTextList, enteredGoalText]);
   }
 
   return (
@@ -20,6 +21,7 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         <Text>List of Goals</Text>
+        {enteredGoalTextList.map((goal,i)=><Text key={i}>{goal}</Text>)}
       </View>
       {/* 
         View is applied flex box css basically

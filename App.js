@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, FlatList, StyleSheet, View } from 'react-native';
 import GoalInput from './components/GoalInput';
@@ -43,6 +44,8 @@ export default function App() {
   }
 
   return (
+    <>
+    <StatusBar style='light'/>
     <View style={styles.appContainer}>
       {/* 
       <View style={styles.inputContainer}>
@@ -50,7 +53,7 @@ export default function App() {
         <Button title='Add Goal' onPress={addGoalHandler}></Button>
       </View> 
       */}
-      <Button title="Add New Goal" onPress={startModalAddGoal}/>
+      <Button title="Add New Goal" onPress={startModalAddGoal} color={'#a065ec'}/>
       <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} onCancel={endModalAddGoal}/>
       <View style={styles.goalsContainer}>
         {
@@ -118,7 +121,7 @@ export default function App() {
       </View>
     */}
     </View>
-
+    </>
   );
 }
 

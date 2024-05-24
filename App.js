@@ -19,11 +19,11 @@ export default function App() {
   }
   */
 
-  function modalAddGoal(){
+  function startModalAddGoal(){
     setModalIsVisible(true);
   }
 
-  function closeAddGoal(){
+  function endModalAddGoal(){
     setModalIsVisible(false);
   }
 
@@ -50,8 +50,8 @@ export default function App() {
         <Button title='Add Goal' onPress={addGoalHandler}></Button>
       </View> 
       */}
-      <Button title="Add New Goal" onPress={modalAddGoal}/>
-      <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} closeModal={closeAddGoal}/>
+      <Button title="Add New Goal" onPress={startModalAddGoal}/>
+      <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} onCancel={endModalAddGoal}/>
       <View style={styles.goalsContainer}>
         {
           /*

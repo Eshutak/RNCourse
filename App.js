@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
-
+import { FlatList, StyleSheet, View } from 'react-native';
+import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
-  const [enteredGoalText, setEnteredGoalText] = useState('');
+  //const [enteredGoalText, setEnteredGoalText] = useState('');
   const [enteredGoalTextList, setEnteredGoalTextList] = useState([]);
-
+  /*
   function goalInputHandler(enteredText){
     setEnteredGoalText(enteredText);
   }
@@ -15,13 +16,32 @@ export default function App() {
       {id : Math.random().toString(), text : enteredGoalText}
     ]);
   }
+  */
+
+  function addGoalHandler(enteredGoalText){
+    setEnteredGoalTextList((currentCourseGoals)=>[... enteredGoalTextList, 
+      {id : Math.random().toString(), text : enteredGoalText}
+    ]);
+  }
+
+  function deleteGoalHandler(target){
+    //console.log('delete ');
+    setEnteredGoalTextList((currentCourseGoals)=>
+      currentCourseGoals.filter((item) => {
+        return item.id !== target.id;
+      })
+    );
+  }
 
   return (
     <View style={styles.appContainer}>
+      {/* 
       <View style={styles.inputContainer}>
         <TextInput style={styles.textInput} placeholder='your course goals' onChangeText={goalInputHandler}></TextInput>
         <Button title='Add Goal' onPress={addGoalHandler}></Button>
-      </View>
+      </View> 
+      */}
+      <GoalInput onAddGoal={addGoalHandler}/>
       <View style={styles.goalsContainer}>
         {
           /*
@@ -34,9 +54,12 @@ export default function App() {
         <FlatList 
           data={ enteredGoalTextList} 
           renderItem={(itemData)=>{ //itemData is element of enteredGoalTextList wrapped by FlatList.
-            return <View key={itemData.item.id} style={styles.goalItem}>
-              <Text style={styles.goalText}> {itemData.item.text} </Text>
-            </View>;
+            // return <View key={itemData.item.id} style={styles.goalItem}>
+            //   <Text style={styles.goalText}> {itemData.item.text} </Text>
+            // </View>;
+            // above codes can changes below code
+            // for capsulization.
+            return <GoalItem item={itemData.item} onDeleteItem={deleteGoalHandler}/>
           }}
           alwaysBounceVertical={false}
         />
@@ -94,35 +117,11 @@ const styles = StyleSheet.create({
     padding : 50,
     flex : 1,
   },
-  inputContainer :{
-    flex : 1,
-    display : 'flex',
-    flexDirection : 'row',
-    justifyContent : 'space-between',
-    marginBottom : 25,
-    borderBottomWidth : 1, 
-    borderBottomColor : '#cccccc',
-    alignItems : 'center',
-  },
-  textInput : {
-    padding : 8,
-    marginRight : 8,
-    borderWidth : 1,
-    borderColor : '#cccccc',
-    width: '70%'
-  }, 
+  
   goalsContainer : {
     flex: 5 ,
   },
-  goalItem : {
-    margin : 8,
-    padding : 8 ,
-    borderRadius : 6,
-    backgroundColor : '#5e0acc',
-  },
-  goalText : {
-    color : 'white',
-  },
+  
   flexBoxArea : {
     display : 'flex',
     justifyContent : 'space-around',

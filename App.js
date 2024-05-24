@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
@@ -10,7 +11,9 @@ export default function App() {
   }
 
   function addGoalHandler(){
-    setEnteredGoalTextList((currentCourseGoals)=>[... enteredGoalTextList, enteredGoalText]);
+    setEnteredGoalTextList((currentCourseGoals)=>[... enteredGoalTextList, 
+      {id : Math.random().toString(), text : enteredGoalText}
+    ]);
   }
 
   return (
@@ -20,8 +23,46 @@ export default function App() {
         <Button title='Add Goal' onPress={addGoalHandler}></Button>
       </View>
       <View style={styles.goalsContainer}>
-        <Text>List of Goals</Text>
-        {enteredGoalTextList.map((goal,i)=><Text key={i}>{goal}</Text>)}
+        {
+          /*
+            ScrollView : FlatList 
+            FlatList render a few items that are displayed screen.
+            so FlatList is more effective Component.
+            and FlatList provides .map method by attribute data and randerItem
+          */
+        }
+        <FlatList 
+          data={ enteredGoalTextList} 
+          renderItem={(itemData)=>{ //itemData is element of enteredGoalTextList wrapped by FlatList.
+            return <View key={itemData.item.id} style={styles.goalItem}>
+              <Text style={styles.goalText}> {itemData.item.text} </Text>
+            </View>;
+          }}
+          alwaysBounceVertical={false}
+        />
+        {/* 
+        <ScrollView alwaysBounceVertical={false}>
+        {
+          enteredGoalTextList.map((goal,i)=>
+            
+              below code isn't same display.
+              in android the border radius is work. but not in iOS.
+              so we have to control this situation by wrapping
+              <View> component.
+              and add goal text style.
+                
+            <Text key={i} style={styles.goalItem}>
+                {goal}
+            </Text>
+            
+            <View key={i} style={styles.goalItem}>
+              <Text style={styles.goalText}> {goal} </Text>
+            </View>
+          )
+        }
+        </ScrollView>
+        */
+      }
       </View>
       {/* 
         View is applied flex box css basically
@@ -72,6 +113,15 @@ const styles = StyleSheet.create({
   }, 
   goalsContainer : {
     flex: 5 ,
+  },
+  goalItem : {
+    margin : 8,
+    padding : 8 ,
+    borderRadius : 6,
+    backgroundColor : '#5e0acc',
+  },
+  goalText : {
+    color : 'white',
   },
   flexBoxArea : {
     display : 'flex',
